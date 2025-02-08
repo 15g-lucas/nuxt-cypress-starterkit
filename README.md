@@ -1,75 +1,64 @@
-# Nuxt Minimal Starter
+# Nuxt + Cypress Starterkit
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Ce projet est un starter kit pour un projet Nuxt.js avec Cypress pour les tests end-to-end. Il utilise Docker pour faciliter la gestion des environnements.
 
-## Setup
+## Prérequis
 
-Make sure to install dependencies:
+- Docker
+- Docker Compose
+   ```bash
+   git clone https://github.com/15g-lucas/nuxt-cypress-starterkit
+   ```
 
-```bash
-# npm
-npm install
+## Démarrer le projet
 
-# pnpm
-pnpm install
+1. **Lancer le projet avec Docker Compose**
 
-# yarn
-yarn install
+   Pour démarrer l'application Nuxt, utilisez la commande suivante :
 
-# bun
-bun install
-```
+   ```bash
+   docker compose up -d
+   ```
 
-## Development Server
+2. **Accéder au conteneur Nuxt**
 
-Start the development server on `http://localhost:3000`:
+   Vous pouvez entrer dans le conteneur Nuxt avec la commande :
 
-```bash
-# npm
-npm run dev
+   ```bash
+   docker exec -it nuxt_app bash
+   ```
 
-# pnpm
-pnpm dev
+3. **Lancer Cypress**
 
-# yarn
-yarn dev
+   Pour obtenir des informations sur votre projet Cypress, exécutez la commande suivante :
 
-# bun
-bun run dev
-```
+   ```bash
+   docker run -it --entrypoint=cypress cypress/included:latest info
+   ```
 
-## Production
+4. **Exécuter les tests Cypress**
 
-Build the application for production:
+   Pour lancer l'ensemble des tests Cypress, utilisez cette commande :
 
-```bash
-# npm
-npm run build
+   ```bash
+   docker run -it -v $PWD:/e2e -w /e2e --name cypress-tests --rm cypress/included:latest
+   ```
 
-# pnpm
-pnpm build
+   Cette commande va exécuter tous les tests définis dans votre projet Cypress.
 
-# yarn
-yarn build
+5. **Spécifier le navigateur de test**
 
-# bun
-bun run build
-```
+   Si vous voulez spécifier un navigateur, vous pouvez ajouter l'option `-b chrome` pour tester avec Chrome, par exemple :
 
-Locally preview production build:
+   ```bash
+   docker run -it -v $PWD:/e2e -w /e2e --name cypress-tests --rm cypress/included:latest -b chrome
+   ```
 
-```bash
-# npm
-npm run preview
+6. **Exécuter des tests spécifiques**
 
-# pnpm
-pnpm preview
+   Pour exécuter un test spécifique, vous pouvez utiliser l'option `-s` pour spécifier le chemin vers le fichier de test :
 
-# yarn
-yarn preview
+   ```bash
+   docker run -it -v $PWD:/e2e -w /e2e --name cypress-tests --rm cypress/included:latest -s cypress/e2e/spec.cy.ts
+   ```
 
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
