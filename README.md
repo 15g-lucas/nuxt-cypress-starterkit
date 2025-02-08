@@ -1,67 +1,66 @@
 # Nuxt + Cypress Starterkit
 
-Ce projet est un starter kit pour un projet Nuxt.js avec Cypress pour les tests end-to-end. Il utilise Docker pour faciliter la gestion des environnements.
+This project is a starter kit for a Nuxt.js project with Cypress for end-to-end testing. It uses Docker to facilitate environment management.
 
-## Prérequis
+## Installation
 
-- Docker
-- Docker Compose
+1. **Clone the repository**
 
-## Démarrer le projet
-
-1. **Lancer le projet avec Docker Compose**
-
-   Pour démarrer l'application Nuxt, utilisez la commande suivante :
+   Clone the Git repository using the following command:
 
    ```bash
-   docker compose up -d
+   git clone https://github.com/15g-lucas/nuxt-cypress-starterkit.git
    ```
 
-2. **Accéder au conteneur Nuxt**
+2. **Navigate to the project directory**
 
-   Vous pouvez entrer dans le conteneur Nuxt avec la commande :
+   Next, move to the cloned project directory:
+
+   ```bash
+   cd nuxt-cypress-starterkit
+   ```
+
+## Start the project
+
+1. **Start the project with Docker Compose**
+
+   To start the Nuxt application, use the following command:
+
+   ```bash
+   docker compose up -d --build
+   ```
+
+2. **Access the Nuxt container**
+
+   You can enter the Nuxt container with the command:
 
    ```bash
    docker exec -it nuxt_app bash
    ```
 
-3. **Lancer Cypress**
+3. **Run Cypress**
 
-   Pour obtenir des informations sur votre projet Cypress, exécutez la commande suivante :
+   To get information about your Cypress project, run the following command:
 
    ```bash
    docker run -it --entrypoint=cypress cypress/included:latest info
    ```
 
-4. **Exécuter les tests Cypress**
+4. **Run Cypress tests**
 
-   Pour lancer l'ensemble des tests Cypress, utilisez cette commande :
-
-   ```bash
-   docker run -it -v $PWD:/e2e -w /e2e --name cypress-tests --rm cypress/included:latest
-   ```
-
-   Cette commande va exécuter tous les tests définis dans votre projet Cypress.
-
-5. **Spécifier le navigateur de test**
-
-   Si vous voulez spécifier un navigateur, vous pouvez ajouter l'option `-b chrome` pour tester avec Chrome, par exemple :
+   To run all Cypress tests, use this command:
 
    ```bash
-   docker run -it -v $PWD:/e2e -w /e2e --name cypress-tests --rm cypress/included:latest -b chrome
+    docker compose run --rm --remove-orphans cypress-chrome
+    docker compose run --rm --remove-orphans cypress-firefox
+    docker compose run --rm --remove-orphans cypress-electron
    ```
 
-6. **Exécuter des tests spécifiques**
+   This command will run all the tests defined in your Cypress project.
 
-   Pour exécuter un test spécifique, vous pouvez utiliser l'option `-s` pour spécifier le chemin vers le fichier de test :
+## Cypress Configuration
 
-   ```bash
-   docker run -it -v $PWD:/e2e -w /e2e --name cypress-tests --rm cypress/included:latest -s cypress/e2e/spec.cy.ts
-   ```
-
-## Configuration de Cypress
-
-Le fichier de configuration `cypress.config.ts` définit des paramètres importants pour l'exécution des tests Cypress. Voici un exemple de configuration de base :
+The configuration file `cypress.config.ts` defines important parameters for running Cypress tests. Here is an example of a basic configuration:
 
 ```typescript
 import { defineConfig } from 'cypress'
@@ -69,29 +68,29 @@ import { defineConfig } from 'cypress'
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      // Vous pouvez ajouter ici des événements personnalisés si nécessaire
+      // You can add custom events here if needed
     },
   },
   retries: {
-    runMode: 1,   // Nombre de réessais en mode d'exécution
-    openMode: 1,  // Nombre de réessais en mode interactif
+    runMode: 1,   // Number of retries in run mode
+    openMode: 1,  // Number of retries in open mode
   },
-  defaultCommandTimeout: 5000,  // Délai d'attente par défaut pour les commandes (en ms)
-  viewportWidth: 1280,  // Largeur de la fenêtre du navigateur
-  viewportHeight: 720, // Hauteur de la fenêtre du navigateur
-  screenshotOnRunFailure: true, // Capturer une capture d'écran en cas d'échec de test
-  video: true, // Enregistrer une vidéo des tests
+  defaultCommandTimeout: 5000,  // Default timeout for commands (in ms)
+  viewportWidth: 1280,  // Browser window width
+  viewportHeight: 720, // Browser window height
+  screenshotOnRunFailure: true, // Capture a screenshot on test failure
+  video: true, // Record a video of the tests
 })
 ```
 
-### Explication des options :
+### Explanation of options:
 
-- **retries** : Configure le nombre de réessais pour les tests échoués. `runMode` s'applique lors de l'exécution des tests en mode headless (sans interface graphique), et `openMode` s'applique lorsque Cypress est ouvert avec l'interface graphique.
+- **retries**: Configures the number of retries for failed tests. `runMode` applies when tests are executed in headless mode (without a graphical interface), and `openMode` applies when Cypress is opened with the graphical interface.
 
-- **defaultCommandTimeout** : Délai d'attente par défaut pour chaque commande dans les tests, ici configuré à 5000 ms (5 secondes).
+- **defaultCommandTimeout**: The default timeout for each command in the tests, set here to 5000 ms (5 seconds).
 
-- **viewportWidth et viewportHeight** : Définissent la taille de la fenêtre du navigateur pour les tests. Ici, la taille est configurée pour correspondre à une résolution HD standard (1280x720).
+- **viewportWidth and viewportHeight**: Defines the browser window size for the tests. Here, the size is set to match a standard HD resolution (1280x720).
 
-- **screenshotOnRunFailure** : Active la capture d'écran automatique en cas de test échoué.
+- **screenshotOnRunFailure**: Enables automatic screenshot capture if a test fails.
 
-- **video** : Active l'enregistrement vidéo des tests pendant leur exécution. Cela peut être utile pour l'analyse des échecs de tests.
+- **video**: Enables video recording of tests during execution. This can be useful for analyzing test failures.

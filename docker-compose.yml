@@ -1,13 +1,39 @@
+version: '3.8'
 services:
   nuxt-app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "${NUXT_PORT}:3000"
     environment:
       - NODE_ENV=development
     volumes:
       - .:/app
       - /app/node_modules
     command: npm run dev
+    container_name: ${TRIGRAM}_nuxt-app
+
+  cypress-chrome:
+    image: cypress/included:latest
+    container_name: ${CONTAINER_NAME_CYPRESS}-chrome
+    volumes:
+      - .:/e2e
+    working_dir: /e2e
+    entrypoint: sh -c "npm install ts-node typescript && npm install && cypress run --browser chrome --headless"
+
+  cypress-firefox:
+    image: cypress/included:latest
+    container_name: ${TRIGRAM}_cypress-firefox
+    volumes:
+      - .:/e2e
+    working_dir: /e2e
+    entrypoint: sh -c "npm install ts-node typescript && npm install && cypress run --browser firefox --headless"
+
+  cypress-electron:
+    image: cypress/included:latest
+    container_name: ${TRIGRAM}_cypress-electron
+    volumes:
+      - .:/e2e
+    working_dir: /e2e
+    entrypoint: sh -c "npm install ts-node typescript && npm install && cypress run --browser electron --headless"
