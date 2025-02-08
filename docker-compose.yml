@@ -16,7 +16,7 @@ services:
 
   cypress-chrome:
     image: cypress/included:latest
-    container_name: ${CONTAINER_NAME_CYPRESS}-chrome
+    container_name: ${TRIGRAM}_cypress-chrome
     volumes:
       - .:/e2e
     working_dir: /e2e
