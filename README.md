@@ -20,6 +20,10 @@ This project is a starter kit for a Nuxt.js project with Cypress for end-to-end 
    cd nuxt-cypress-starterkit
    ```
 
+3. **Set the TRIGRAM and PORT environment variable**
+
+   ⚠️ Before starting the project, **you must change the** `TRIGRAM` **and** `NUXT_PORT` **variables** in the `.env` file to match your project's unique identifier. This is essential for the correct naming of the Docker containers.
+
 ## Start the project
 
 1. **Start the project with Docker Compose**
@@ -35,7 +39,7 @@ This project is a starter kit for a Nuxt.js project with Cypress for end-to-end 
    You can enter the Nuxt container with the command:
 
    ```bash
-   docker exec -it nuxt_app bash
+   docker exec -it TRIGRAM_nuxt-app bash
    ```
 
 3. **Run Cypress**
@@ -51,9 +55,7 @@ This project is a starter kit for a Nuxt.js project with Cypress for end-to-end 
    To run all Cypress tests, use this command:
 
    ```bash
-    docker compose run --rm --remove-orphans cypress-chrome
-    docker compose run --rm --remove-orphans cypress-firefox
-    docker compose run --rm --remove-orphans cypress-electron
+    docker compose run --rm --remove-orphans cypress
    ```
 
    This command will run all the tests defined in your Cypress project.

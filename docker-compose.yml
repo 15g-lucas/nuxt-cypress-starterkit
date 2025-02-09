@@ -13,26 +13,11 @@ services:
     command: npm run dev
     container_name: ${TRIGRAM}_nuxt-app
 
-  cypress-chrome:
+  cypress:
+    build:
+      dockerfile: cypress.Dockerfile
     image: cypress/included:latest
     container_name: ${TRIGRAM}_cypress-chrome
     volumes:
       - .:/e2e
     working_dir: /e2e
-    entrypoint: sh -c "npm install ts-node typescript && npm install && cypress run --browser chrome --headless"
-
-  cypress-firefox:
-    image: cypress/included:latest
-    container_name: ${TRIGRAM}_cypress-firefox
-    volumes:
-      - .:/e2e
-    working_dir: /e2e
-    entrypoint: sh -c "npm install ts-node typescript && npm install && cypress run --browser firefox --headless"
-
-  cypress-electron:
-    image: cypress/included:latest
-    container_name: ${TRIGRAM}_cypress-electron
-    volumes:
-      - .:/e2e
-    working_dir: /e2e
-    entrypoint: sh -c "npm install ts-node typescript && npm install && cypress run --browser electron --headless"
