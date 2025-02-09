@@ -11,11 +11,11 @@ services:
       - .:/app
       - /app/node_modules
     command: npm run dev
-    container_name: ${TRIGRAM}_nuxt-app
+    container_name: ${TRIGRAM:-DCK}_nuxt-app
 
   cypress:
     image: cypress/included:latest
-    container_name: ${TRIGRAM}_cypress
+    container_name: ${TRIGRAM:-DCK}_cypress
     volumes:
       - .:/e2e
     working_dir: /e2e

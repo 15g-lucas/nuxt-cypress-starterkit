@@ -1,7 +1,8 @@
-FROM node:22-alpine
+FROM node:alpine
 WORKDIR /app
 COPY package*.json ./
 RUN apk add --no-cache bash
+RUN npm install -g npm@latest
 RUN npm install
 RUN npm install ts-node typescript
 COPY . .
