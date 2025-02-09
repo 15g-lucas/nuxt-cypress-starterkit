@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "${NUXT_PORT}:3000"
+      - "${NUXT_PORT:-3000}:3000"
     environment:
       - NODE_ENV=development
     volumes:
@@ -16,8 +16,7 @@ services:
   cypress:
     build:
       dockerfile: cypress.Dockerfile
-    image: cypress/included:latestapp
-
+    image: cypress/included:latest
     container_name: ${TRIGRAM}_cypress-chrome
     volumes:
       - .:/e2e
