@@ -14,10 +14,8 @@ services:
     container_name: ${TRIGRAM}_nuxt-app
 
   cypress:
-    build:
-      dockerfile: cypress.Dockerfile
     image: cypress/included:latest
-    container_name: ${TRIGRAM}_cypress-chrome
+    container_name: ${TRIGRAM}_cypress
     volumes:
       - .:/e2e
     working_dir: /e2e
