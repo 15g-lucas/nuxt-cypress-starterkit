@@ -55,12 +55,36 @@ This project is a starter kit for a Nuxt.js project with Cypress for end-to-end 
    To run all Cypress tests, use this command:
 
    ```bash
-    docker compose run --rm --remove-orphans cypress
+   docker compose run --rm --remove-orphans cypress
    ```
 
    This command will run all the tests defined in your Cypress project.
 
+   You can specify the browser using `-b chrome` or `-b firefox`:
+
+   ```bash
+   docker compose run --rm --remove-orphans cypress -b chrome
+   ```
+
+   To run tests in headless mode, add `--headless`:
+
+   ```bash
+   docker compose run --rm --remove-orphans cypress -b chrome --headless
+   ```
+
+   To run a single test, specify the test file:
+
+   ```bash
+   docker compose run --rm --remove-orphans cypress run --spec cypress/e2e/test-file.cy.js
+   ```
+
 ## Cypress Configuration
+
+⚠️ **Warning:** If you encounter issues running Cypress with TypeScript, ensure that your machine has the necessary dependencies installed:
+
+   ```bash
+   npm install ts-node typescript
+   ```
 
 The configuration file `cypress.config.ts` defines important parameters for running Cypress tests. Here is an example of a basic configuration:
 
@@ -96,3 +120,4 @@ export default defineConfig({
 - **screenshotOnRunFailure**: Enables automatic screenshot capture if a test fails.
 
 - **video**: Enables video recording of tests during execution. This can be useful for analyzing test failures.
+

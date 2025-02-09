@@ -16,7 +16,8 @@ services:
   cypress:
     build:
       dockerfile: cypress.Dockerfile
-    image: cypress/included:latest
+    image: cypress/included:latestapp
+
     container_name: ${TRIGRAM}_cypress-chrome
     volumes:
       - .:/e2e
