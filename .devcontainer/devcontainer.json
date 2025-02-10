@@ -1,0 +1,19 @@
+{
+  "name": "Nuxt Cypress Starterkit",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "octref.vetur",
+    "ms-vscode.vscode-node-debug2",
+    "ms-vscode.vscode-typescript-tslint-plugin"
+  ],
+  "forwardPorts": [3000, 8080],
+  "postCreateCommand": "yarn install && yarn dev",
+  "remoteUser": "node"
+}
