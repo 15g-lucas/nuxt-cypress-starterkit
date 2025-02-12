@@ -1,6 +1,4 @@
 .idea
 package-lock.json
 node_modules/
-!node_modules/ts-node/
-!node_modules/@tsconfig/
 .nuxt
