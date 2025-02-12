@@ -1,5 +1,6 @@
-FROM cypress/included:latest
-WORKDIR /e2e
-RUN npm install ts-node typescript
+FROM cypress/included:12.17.1
+WORKDIR /app
+COPY package*.json ./
 RUN npm install
+COPY . .
 CMD ["cypress", "run"]
